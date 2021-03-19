@@ -10,7 +10,6 @@ from InternalControl import cInternalControl
 objControl= cInternalControl()
 
 def main():
-    print('Starting process, please stand by...')
     dexist=False
     dexist=os.path.exists(objControl.excel_dir)
     if dexist==False:
@@ -24,16 +23,8 @@ def main():
     keyspace=objControl.keyspace
     table=objControl.table
     columns_list=[]
-    if objControl.todosCampos:
-        query="select column_name from system_schema.columns WHERE keyspace_name = '"+keyspace+"' AND table_name = '"+table+"';"
-        columns_list=bd.getShortQuery(query)
-    else:
-        columns_list.append('cip')
-        columns_list.append('cpc')
-        columns_list.append('id')
-        columns_list.append('sample')
-        columns_list.append('year')
-
+    query="select column_name from system_schema.columns WHERE keyspace_name = '"+keyspace+"' AND table_name = '"+table+"';"
+    columns_list=bd.getShortQuery(query)
     coln=1
     for col in columns_list:
         #Write(row,column)
@@ -46,9 +37,7 @@ def main():
             h1.value = col
             lsFields.append(col)
         coln=coln+1
-        wb.save(dir_excel) 
-    #Reading list of fields into commas for the next query
-    fieldsForQuery=','.join(lsFields)    
+    #Reading list of fields into commas for the next query  
     #Starts  the reading of periods    
     flag=os.path.isfile(dir_excel)
     if flag:
