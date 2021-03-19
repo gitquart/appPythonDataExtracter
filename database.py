@@ -30,6 +30,7 @@ def getCluster():
 """
 getLargeQuery
 Use getLargeQuery if you want to print  the results set of any table with several records. i.e. 10 K or more records
+You can get a DataFrame from a list : https://www.geeksforgeeks.org/create-a-pandas-dataframe-from-lists/
 """
 def getLargeQuery(query):
     cluster = getCluster()
