@@ -1,3 +1,2 @@
--This code works can turn any table to excel file, just change some values like name of file, table, etc
--Verify that you are looking by a field in query (ex: year) and year is an index on database,
-otherwise the query will retrieve much less records.
+appPythonDataExtracter is a generic code to get data from datastax
+You can use the fetched data as you wish
