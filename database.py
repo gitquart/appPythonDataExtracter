@@ -27,62 +27,31 @@ def getCluster():
     cluster = Cluster(cloud=cloud_config, auth_provider=auth_provider)
 
     return cluster
-
-#getLargeQueryAndPrintToExcel
-#Prints normal query in an spreadsheet
-def getLargeQueryAndPrintToExcel(query,dir_excel,title):
-    cluster = getCluster()
-    session = cluster.connect()
-    session.default_timeout=70     
-    statement = SimpleStatement(query, fetch_size=1000)
-    wb = load_workbook(dir_excel)
-    ws = wb[title]
-    
-    for row in session.execute(statement):
-        ls=[]
-        for col in row:
-            ls.append(str(col))
-        ws.append(ls)
-           
-    wb.save(dir_excel) 
-    cluster.shutdown() 
-
-#getLargeQueryAndPrintToExcel_Special
-#Prints a query in spreadsheet by special conditions
-def getLargeQueryAndPrintToExcel_Special(query,dir_excel,title):
-    cluster = getCluster()
-    session = cluster.connect()
-    session.default_timeout=70     
-    statement = SimpleStatement(query, fetch_size=1000)
-    wb = load_workbook(dir_excel)
-    ws = wb[title]
-    
-    for row in session.execute(statement):
-        ls=[]
-        coln=1
-        for col in row:
-            #Case for cip , position 1
-            if coln==1:
-                if col!='':
-                    chunks=str(col).split(';')
-                    if len(chunks)>0:
-                        lsPart=[]
-                        for item in chunks:
-                            strParts=item.strip()
-                            lsPart.append(strParts[0])
-                        col=';'.join(lsPart)    
-                    else:
-                        strParts=col.split()
-                        col=strParts[0]        
-            ls.append(str(col))
-            coln+=1
-        ws.append(ls)
-           
-    wb.save(dir_excel) 
-    cluster.shutdown() 
-
-
+"""
+getLargeQuery
+Use getLargeQuery if you want to print  the results set of any table with several records. i.e. 10 K or more records
+"""
 def getLargeQuery(query):
+    cluster = getCluster()
+    session = cluster.connect()
+    session.default_timeout=70     
+    statement = SimpleStatement(query, fetch_size=1000)
+    for row in session.execute(statement):
+        ls=[]
+        for col in row:
+            ls.append(str(col))
+           
+    cluster.shutdown() 
+    return ls
+
+
+"""
+getTotalOfRecords
+Use getTotalOfRecords to know the total records of a Large Table
+Large Table: Any table with information
+"""
+
+def getTotalOfRecords(query):
     cluster = getCluster()
     session = cluster.connect()
     session.default_timeout=70     
@@ -96,21 +65,22 @@ def getLargeQuery(query):
     cluster.shutdown()     
 
 
-
+"""
+getShortQuery
+Use getShortQuery if you want to get the resultSet of a Small table
+Small table: Any control table in Datastax, i.e. 50 records
+"""
 def getShortQuery(query):
     res=''
     cluster=getCluster()
     session = cluster.connect()
-    session.default_timeout=70
-    #Check wheter or not the record exists      
+    session.default_timeout=70 
     future = session.execute_async(query)
     res=future.result()
     cluster.shutdown()
 
     return res 
 
-
-                
 
      
 class CassandraConnection():
