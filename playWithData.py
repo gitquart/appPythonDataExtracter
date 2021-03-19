@@ -1,15 +1,13 @@
 """
-Program that will write cassandra table in excel workbook
+You can play here!
 
 """
-from openpyxl import Workbook
-from openpyxl import load_workbook
+
 import os
 import database as bd
 from InternalControl import cInternalControl
 
 objControl= cInternalControl()
-dir_excel=objControl.excel_dir+objControl.excel_file
 
 def main():
     print('Starting process, please stand by...')
