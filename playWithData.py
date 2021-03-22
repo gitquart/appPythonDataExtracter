@@ -8,10 +8,10 @@ import database as bd
 from InternalControl import cInternalControl
 
 objControl= cInternalControl()
-
-def main():
+"""
+ def main():
     #Get cassandra columns
-    keyspace=objControl.keyspace
+    keyspace=objControl.keyspace 
     table=objControl.table
     columns_list=[]
     query="select column_name from system_schema.columns WHERE keyspace_name = '"+keyspace+"' AND table_name = '"+table+"';"
@@ -26,3 +26,8 @@ def main():
 if __name__=='__main__':
     main()    
    
+   """
+query = "select * from test.tbcourtdecisiontfjfa where year > 0 ALLOW FILTERING"
+lsresultado = bd.getLargeQuery(query) 
+for i in lsresultado:
+    print(i)

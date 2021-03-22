@@ -1,8 +1,6 @@
 from cassandra.cluster import Cluster
 from cassandra.auth import PlainTextAuthProvider
 from cassandra.query import SimpleStatement
-from openpyxl import Workbook
-from openpyxl import load_workbook
 from InternalControl import cInternalControl
 
 objControl= cInternalControl()
@@ -37,8 +35,8 @@ def getLargeQuery(query):
     session = cluster.connect()
     session.default_timeout=70     
     statement = SimpleStatement(query, fetch_size=1000)
+    ls=[]
     for row in session.execute(statement):
-        ls=[]
         for col in row:
             ls.append(str(col))
            
