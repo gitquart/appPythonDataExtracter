@@ -14,7 +14,7 @@ objControl= cInternalControl()
     keyspace=objControl.keyspace 
     table=objControl.table
     columns_list=[]
-    query="select id from "+objControl.keyspace+"."+objControl.table+" where secuencia=0 ALLOW FILTERING;"
+    query="select id from "+keyspace+"."+table+" where secuencia=0 ALLOW FILTERING;"
     #column_list can be used to name the columns in dataframe
     bd.getTotalOfRecords(query) 
     #Fecth any data you want here...the query   
