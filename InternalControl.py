@@ -1,4 +1,4 @@
 class cInternalControl:
     keyspace='test'
-    table='tbcourtdecisiontfjfa'
+    table='tbcourtdecisiontfjfa_pdf'
     db='dbtest'

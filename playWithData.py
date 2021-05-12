@@ -14,9 +14,9 @@ def main():
     keyspace=objControl.keyspace
     table=objControl.table
     columns_list=[]
-    query="select column_name from system_schema.columns WHERE keyspace_name = '"+keyspace+"' AND table_name = '"+table+"';"
+    query="select id from "+objControl.keyspace+"."+objControl.table+" where secuencia=0 ALLOW FILTERING;"
     #column_list can be used to name the columns in dataframe
-    columns_list=bd.getShortQuery(query) 
+    bd.getTotalOfRecords(query) 
     #Fecth any data you want here...the query   
     
 
